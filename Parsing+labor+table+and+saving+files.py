@@ -1,24 +1,14 @@
 
-# coding: utf-8
-
-# In[1]:
-
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import re
-
-
-# In[2]:
 
 def getlinks(driver):
     links = driver.find_elements_by_css_selector(".footable-loaded.phone")
     for i in links:
         if links.index(i) % 3 == 0:
             casenumbers.append(i.text)
-
-
-# In[3]:
 
 def scrapecasenumbers(driver):
     morepages = True
@@ -77,9 +67,6 @@ def scrapecasenumbers(driver):
             print "Total cases scraped: {}".format(len(casenumbers))
             print ""
 
-
-# In[4]:
-
 def loadbrowser():
     driver = webdriver.Chrome()
     driver.get("https://escheduling.dlr.state.ma.us/pubinfo/")
@@ -87,24 +74,10 @@ def loadbrowser():
     driver.find_element_by_xpath('//*[@id="ctl00_BodyContent_radioButtonYes"]').click()
     return driver
 
-
-# In[5]:
-
 casenumbers = []
-
-
-# In[6]:
-
 years = ['2011']
-
-
-# In[9]:
-
 quarters = {'1/01/':'8/31/',
             '9/01/':'12/31/'}
-
-
-# In[10]:
 
 for year in years:
     for start, end in quarters.iteritems():
@@ -121,18 +94,9 @@ for year in years:
         submit.click()
         scrapecasenumbers(driver)
         driver.quit()
-
-
-# In[11]:
-
+        
 # Save the case numbers to a text file
 thefile = open('cases_2011.txt', 'w')
 for item in casenumbers:
   thefile.write("%s\n" % item)
 thefile.close()
-
-
-# In[ ]:
-
-
-
